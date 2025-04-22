@@ -26,11 +26,18 @@ export class TaskService {
     // return await this.taskRepository.save(task);
   }
 
-  async findTasksByUserId(userId: number): Promise<Task[]> {
-    return await this.taskRepository.find({
-      where: { userId },
-      order: { createdAt: 'DESC' },
-    });
+  async findAll(query: any): Promise<Task[]> {
+    const where: any = {};
+
+    if (query.completed !== undefined) {
+      where.completed = query.completed === 'true';
+    }
+
+    if (query.userId) {
+      where.userId = query.userId * 1;
+    }
+
+    return this.taskRepository.find({ where });
   }
 
   async findTaskById(id: number): Promise<Task> {
@@ -78,15 +85,5 @@ export class TaskService {
     task.completed = false;
     task.completedAt = null;
     return await this.taskRepository.save(task);
-  }
-
-  async findTaskByUserIdAndCompleted(
-    userId: number,
-    completed: boolean,
-  ): Promise<Task[]> {
-    return await this.taskRepository.find({
-      where: { userId, completed },
-      order: { createdAt: 'DESC' },
-    });
   }
 }
