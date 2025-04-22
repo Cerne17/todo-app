@@ -10,6 +10,7 @@
 
 - User
 - Task
+- Auth
 
 ## Endpoints
 
@@ -30,3 +31,8 @@
 - DELETE /tasks/:id: deletes a task by id
 - POST /tasks/:id/complete: marks a task as completed
 - POST /tasks/:id/undo: marks a task as not completed
+
+### Auth
+
+- POST /auth/signIn
+- POST /auth/signUp
