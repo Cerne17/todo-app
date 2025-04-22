@@ -28,6 +28,11 @@ export class UserService {
     return user;
   }
 
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    return user;
+  }
+
   async updateUser(id: number, user: Partial<User>): Promise<User> {
     await this.userRepository.update(id, user);
     const updatedUser = await this.findUserById(id);
